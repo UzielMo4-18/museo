@@ -1,0 +1,10 @@
+{% extends "Base.html" %}
+{% block content %}
+<h1>¡Vuelva a visitarnos!</h1>
+<p>Registre su salida en los siguientes campos.</p>
+<form method="post">
+  {% csrf_token %}
+  {{form}}
+  <button type="submit">Registrar salida</button>
+</form>
+{% endblock %}

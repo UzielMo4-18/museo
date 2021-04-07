@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views import View
-from .forms import VisitaForm
+from .models import Visita
+from .forms import VisitaEntryForm,VisitaExitForm
 # Create your views here.
 
 class Home(View):
@@ -10,15 +11,30 @@ class Home(View):
 
 class Entrada(View):
     def get(self,request):
-        form=VisitaForm()
+        form=VisitaEntryForm()
         context={'form':form}
         return render(request,'Entrada.html',context)
 
     def post(self,request):
-        form=VisitaForm(request.POST)
+        form=VisitaEntryForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index')
         else:
             context={'form':form}
             return render(request,'Entrada.html',context)
+
+class Salida(View):
+    def get(self,request):
+        form=VisitaExitForm()
+        context={'form':form}
+        return render(request,'Salida.html',context)
+
+    def post(self,request):
+        form=VisitaExitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            context={'form':form}
+            return render(request,'Salida.html',context)
